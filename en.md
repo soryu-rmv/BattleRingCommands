@@ -21,7 +21,7 @@ Although, those who wants to develop novel battle scene for their games will hav
 in terms of testing the combination of plugins and management of battle plugin components.
 
 
-## 2. Usage
+## 2. How to use
 
 This plugin offers three types of design, **type-Alpha**, **type-Beta**, and **type-Gamma**. <br>
 Take either one script file which you prefer to install.
