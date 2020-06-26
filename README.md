@@ -35,7 +35,7 @@ by 蒼竜 @soryu_rpmakermv
 それぞれ印象の異なるレイアウトとなっている。
 
 #### 2.1.1 Type-α
-
+<img width="602" alt="alpha" src="https://user-images.githubusercontent.com/64351233/85850933-bb3f3980-b7e8-11ea-9fd1-a2458b05cea7.png">
 
 Type-αは、平面的な円周上にアイコンを配置するスタイルで、<br>
 MOG_BattleHudが提供しているデザインに最も近いものである。<br>
@@ -43,7 +43,7 @@ MOG_BattleHudが提供しているデザインに最も近いものである。<
 コマンドの選択は**左右のキー**で行う。
 
 #### 2.1.2 Type-β
-
+<img width="606" alt="beta" src="https://user-images.githubusercontent.com/64351233/85850929-baa6a300-b7e8-11ea-8bb6-640c9e5575dc.png">
 
 Type-βは、横長の楕円型リングコマンドである。<br>
 選択中のコマンドアイコンからの距離に応じて、表示サイズを小さく、透明度を高くすることで<br>
@@ -52,6 +52,7 @@ Type-βは、横長の楕円型リングコマンドである。<br>
 コマンドの選択は**左右のキー**で行う。
 
 #### 2.1.2 Type-γ
+<img width="608" alt="gamma" src="https://user-images.githubusercontent.com/64351233/85850924-b8dcdf80-b7e8-11ea-963b-4ec5b09df533.png">
 
 Type-γは、縦長の楕円型リングコマンドである。<br>
 Type-βと同様に、選択中のコマンドアイコンからの距離に応じて、表示サイズを小さく、透明度を高くすることで<br>
