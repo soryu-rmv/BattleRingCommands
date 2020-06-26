@@ -28,7 +28,7 @@ Take either one script file which you prefer to install.
 
 This plugin series has **sample RPGMV project** which encloses every layout type. <br>
 You recommend to confirm it to install the plugin. <br>
-
+**(The layout is presented in Japanese, replace your region language for some following settings.)** <br>
 
 
 ### 2.1. Layout Type
