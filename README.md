@@ -101,9 +101,33 @@ Com_[XXX]_disabled.png
 
 ### 2.3. 設定
 
-項目と説明量がやや多いため、別ページに記載する。<br>
+デフォルトデザインのものは設定が済んでいるため修正の必要はないが、<br>
+独自のUIデザインを適用する場合のために、下記のプラグインパラメータを提供している。<br>
 
-→ [パラメータ設定](https://github.com/soryu-rmv/BattleStatusHUD/blob/master/parameters.md)
+- Ringbase_X-coordinate
+- Ringbase_Y-coordinate
+Layout.png を置く座標 (続く画像類の基準位置となる）
+
+- Ringover_X-coordinate
+- Ringover_Y-coordinate
+Layout2.png を置く座標
+
+- CommandPadd_X-coordinate
+- CommandPadd_Y-coordinate
+コマンドアイコンの選択中の配置位置（全コマンドアイコンの基準位置）
+
+
+- CommandName_X-coordinate
+- CommandName_Y-coordinate
+選択中のコマンド名称の配置位置
+
+- CommandName_Width
+選択中のコマンド名称の描画幅（これを基準に名称表示が中央寄せされる）
+
+- RingCommands_Radius
+リングコマンド半径<br>
+(Type-βおよびγは、数学的都合でUI描画位置がやや難。)
+
 
 <br><br>
 
