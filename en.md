@@ -177,8 +177,8 @@ Thus, it is considered that this overwritten makes no problems for the conflict 
 
 ### 3.2. Extension
 
-- Functions such as **Scene_Battle.prototype.commandAttack** for shifting command input
-- **Scene_Battle.prototype.updateBattleProcess** 
+- Functions such as **Scene_Battle.prototype.commandAttack**
+- **Scene_Battle.prototype.updateBattleProcess**  for shifting command input
 
 To insert ring command layout and its update during the scene for actor command choice
 
