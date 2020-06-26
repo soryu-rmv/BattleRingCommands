@@ -199,5 +199,5 @@ To insert ring command layout and its update during the scene for actor command 
 
 
 ### Version Info.
- - ver 1.00  (Jun 26, 2020)   Released!
+ - ver 1.00  (Jun 27, 2020)   Released!
 
