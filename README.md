@@ -114,7 +114,7 @@ Com_[XXX]_disabled.png
 [IsEnabled_SkillTypes](https://github.com/soryu-rmv/IsEnabled_SkillTypes/tree/master)
 
 
-類似の機能を実現するプラグインを導入済みの場合は必要ない。<br><br><br><br>
+類似の機能を実現するプラグインを導入済みの場合は必要ない (サンプルプロジェクトには同梱している)。<br><br><br><br>
 
 
 
