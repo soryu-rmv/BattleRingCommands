@@ -89,6 +89,10 @@ Com_[XXX].png
 Here, \[XXX\] is **a terminology for the battle command which used in your game**. <br>
 
 
+
+
+#### 2.2.3 Appendix (You need other plugins to control command enable/disable, not skills)
+
 Additionally, you have to prepare another image for <br>
 **commands which supposed to be disabled by some actor states** <br>
 (i.e. magic spells are disabled due to spell sealing states.)  as
@@ -102,7 +106,7 @@ to alter icons under appropriate states. <br><br>
 
 Any icons have no limitation for their size.<br>
 In the sample project, to create disabled icons based on  default RPGMV icons,<br>
-icons are designed as the size of image 36x36. <br><br>
+icons are designed as the size of image 36x36. <br><br><br><br>
 
 
 
