@@ -109,6 +109,16 @@ In the sample project, to create disabled icons based on  default RPGMV icons,<b
 icons are designed as the size of image 36x36. <br><br><br><br>
 
 
+**!!Appendix!!** <br>
+To test this feature anyway, here presents supplementary script <br>
+to disable specific commands under skill sealing states. <br>
+
+[IsEnabled_SkillTypes](https://github.com/soryu-rmv/IsEnabled_SkillTypes/blob/master/en.md)
+
+If you have already installed similar plugins, there are no need to use this. <br>
+The sample project for SoR_BattleRingCommands involves this plugin. <br><br><br><br>
+
+
 
 Below snapshot shows a constitution of **./img/SoRBatCom/** in case of **Type-Alpha**, <br>
 which assumes to apply to the default new RPGMV project.<br>
@@ -184,7 +194,7 @@ Thus, it is considered that this overwritten makes no problems for the conflict 
 - Functions such as **Scene_Battle.prototype.commandAttack**
 - **Scene_Battle.prototype.updateBattleProcess**  for shifting command input
 
-To insert ring command layout and its update during the scene for actor command choice
+To insert ring command layout and its update during the scene for actor command choice.
 
 
 
