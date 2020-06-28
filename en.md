@@ -125,6 +125,16 @@ which assumes to apply to the default new RPGMV project.<br>
 
 <img width="568" alt="sample" src="https://user-images.githubusercontent.com/64351233/85851612-0279fa00-b7ea-11ea-88a7-ea97e3f34bfa.png">
 
+<br><br>
+
+Furthermore, an enclosed file **command_icons.psd** provides to design your icon. <br>
+Images in the sample project were prepared by using this. <br>
+Whoever has registered your own RPGMV can use it because the images are derived from default RPGMV iconset images. <br>
+
+
+<br><br>
+
+
 
 
 
