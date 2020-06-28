@@ -124,6 +124,16 @@ Com_[XXX]_disabled.png
 
 <img width="568" alt="sample" src="https://user-images.githubusercontent.com/64351233/85851612-0279fa00-b7ea-11ea-88a7-ea97e3f34bfa.png">
 
+<br><br>
+
+
+併せて添付している**command_icons.psd**にアイコンデザイン用のファイルを置いた。<br>
+photoshop以外にも[他のソフトウェアで開ける](https://ferret-plus.com/7493)模様なので、<br>
+必要に応じて利用してよい。<br>
+ただし、標準のIconSet.pngを使用している関係で、RPGツクールMVのユーザー登録を済ませている者に限られる。
+
+<br><br>
+
 
 
 
