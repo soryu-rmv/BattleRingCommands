@@ -3,7 +3,7 @@
 // MIT License (C) 2020 蒼竜 @soryu_rpmaker
 // http://opensource.org/licenses/mit-license.php
 // ----------------------------------------------------------------------------
-// Latest version v1.00 (2020/06/27)
+// Latest version v1.01 (2020/07/10)
 //=============================================================================
 
 /*:ja
@@ -30,6 +30,7 @@
 * -----------------------------------------------------------
 * バージョン情報
 * -----------------------------------------------------------
+* v1.01 (2020/07/10)       パーティコマンド切り替え時にRingが表示されたままだった問題を修正
 * v1.00 (2020/06/27)       公開  
 *
 *
@@ -104,6 +105,7 @@
 * -----------------------------------------------------------
 * Version Info.
 * -----------------------------------------------------------
+* v1.01 (2020/07/10)       Modified the ring to be invisible at PartyCommandSelection
 * v1.00 (2020/06/27)       Released!
 *
 *
@@ -189,6 +191,12 @@ Scene_Battle.prototype.createDisplayObjects = function(){
 	SoR_BRC_SB_createDisplayObjects.call(this);
 	this.SoR_RingBatCommand_init();
 }
+
+var SoR_BRC_SB_startPartyCommandSelection = Scene_Battle.prototype.startPartyCommandSelection;
+Scene_Battle.prototype.startPartyCommandSelection = function() {
+	SoR_BRC_SB_startPartyCommandSelection.call(this);
+    this.SoR_ringbcom.setInvisible();
+};
  
 Scene_Battle.prototype.SoR_RingBatCommand_init = function() {
 	
