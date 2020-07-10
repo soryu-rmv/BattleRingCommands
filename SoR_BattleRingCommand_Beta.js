@@ -188,12 +188,6 @@ Scene_Battle.prototype.createDisplayObjects = function(){
 	this.SoR_RingBatCommand_init();
 }
  
- 
-var SoR_BRC_SB_startPartyCommandSelection = Scene_Battle.prototype.startPartyCommandSelection;
-Scene_Battle.prototype.startPartyCommandSelection = function() {
-	SoR_BRC_SB_startPartyCommandSelection.call(this);
-    this.SoR_ringbcom.setInvisible();
-};
 
 Scene_Battle.prototype.SoR_RingBatCommand_init = function() {
 	
@@ -238,6 +232,12 @@ Window_ActorCommand.prototype.setup2 = function(actor) {
     this.open();
 };
 /////////////////////////////////////////////////////////////////
+
+var SoR_BRC_WA_processCancel = Window_ActorCommand.prototype.processCancel;
+Window_ActorCommand.prototype.startPartyCommandSelection = function() {
+    SceneManager._scene.SoR_ringbcom.setInvisible();
+	SoR_BRC_WA_processCancel.call(this);
+};
 
 /////////////////////////////////////////////////////////////
 ///// command input start
