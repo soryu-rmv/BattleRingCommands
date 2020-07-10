@@ -209,5 +209,5 @@ To insert ring command layout and its update during the scene for actor command 
 
 
 ### Version Info.
- - ver 1.00  (Jun 27, 2020)   Released!
-
+- ver 1.01  (Jul 10, 2020)   Modified the ring to be invisible at PartyCommandSelection
+- ver 1.00  (Jun 27, 2020)   Released!
