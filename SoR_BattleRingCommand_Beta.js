@@ -198,7 +198,7 @@ Scene_Battle.prototype.SoR_RingBatCommand_init = function() {
     
 	this.SoR_ringbcom = new SoR_BattleRingCommand();
 	this.SoR_RBcomField.addChild(this.SoR_ringbcom.basespr);
-	this.SoR_RBcomField.addChild(this.SoR_ringbcom.basesprU);
+	if(this.SoR_ringbcom.basesprU!=null) this.SoR_RBcomField.addChild(this.SoR_ringbcom.basesprU);
 	this.SoR_RBcomField.addChild(this.SoR_ringbcom.ComNameWindow)
 }
 
@@ -215,6 +215,7 @@ Scene_Battle.prototype.updateBattleProcess = function() {
 
 /////////////////////////////////////////////////////////////////
 Window_ActorCommand.prototype.setup = function(actor) {
+	this.x = -1000;
     this._actor = actor;
     this.clearCommandList();
     this.makeCommandList();
@@ -224,6 +225,7 @@ Window_ActorCommand.prototype.setup = function(actor) {
 };
 
 Window_ActorCommand.prototype.setup2 = function(actor) {
+	this.x = -1000;
     this._actor = actor;
     this.clearCommandList();
     this.makeCommandList();
@@ -492,6 +494,7 @@ SoR_BattleRingCommand.prototype.initialize = function(){
 	this.radius = RingCommands_Radius;
 	this.visible = false;
 	this.basespr = null;
+	this.basesprU = null;
 	this.maxicons = 0;	
 	this.cursor_icon_emph = 0; // scale icons for current index
 	
@@ -514,6 +517,7 @@ SoR_BattleRingCommand.prototype.setup_RingCommand = function(comact){
 	this.ring_rotate = 0;
 	this.rotate_scale = 1;
 	this.basespr.visible = true;
+	this.basesprU.visible = true;
 	this.stack_coms = [];
 }
 
