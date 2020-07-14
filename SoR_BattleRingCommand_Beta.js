@@ -1,9 +1,9 @@
-﻿//=============================================================================
+//=============================================================================
 // SoR_BattleRingCommand_Beta.js
 // MIT License (C) 2020 蒼竜 @soryu_rpmaker
 // http://opensource.org/licenses/mit-license.php
 // ----------------------------------------------------------------------------
-// Latest version v1.01 (2020/07/10)
+// Latest version v1.02 (2020/07/15)
 //=============================================================================
 
 /*:ja
@@ -30,6 +30,7 @@
 * -----------------------------------------------------------
 * バージョン情報
 * -----------------------------------------------------------
+* v1.02 (2020/07/15)       マウス操作に対応、およびそのためのリング挙動調整
 * v1.01 (2020/07/10)       パーティコマンド切り替え時にRingが表示されたままだった問題を修正
 * v1.00 (2020/06/27)       公開  
 *
@@ -104,6 +105,7 @@
 * -----------------------------------------------------------
 * Version Info.
 * -----------------------------------------------------------
+* v1.02 (2020/07/15)       Make compatible with PC Mouse with some modification for ring behavior
 * v1.01 (2020/07/10)       Modified the ring to be invisible at PartyCommandSelection
 * v1.00 (2020/06/27)       Released!
 *
@@ -278,9 +280,11 @@ Window_ActorCommand.prototype.numVisibleRows = function() {
 
 /////////////////////////////////////////////////////////////
 // Side input (overwrite)
-Window_ActorCommand.prototype.processCursorMove = function() {
+Window_ActorCommand.prototype.processCursorMove = function() {	
 	var Inputting = 0;
 	this._prev=0;
+	
+	if(this.comwait && this.comwait>0) return;
 	
 	if (this.isOpenAndActive()){
 		if (Input.isRepeated('left')) Inputting = 1; 
@@ -293,7 +297,103 @@ Window_ActorCommand.prototype.processCursorMove = function() {
 		this._index = (this._index+this._list.length)%this._list.length;
 	}
 }
+
+//wheel input
+Window_ActorCommand.prototype.processWheel = function() {	
+	var Inputting = 0;
+	this._Mprev=0;
+	if(this.comwait && this.comwait>0) return;
+	
+    if (this.isOpenAndActive()) {
+        var threshold = 25;
+        if (TouchInput.wheelY >= threshold) Inputting = 1; 
+        if (TouchInput.wheelY <= -threshold) Inputting = -1;		
+		
+		if(Inputting!=0){
+				SoundManager.playCursor();
+				this._Mprev = Inputting;
+				this._index += Inputting;
+				this._index = (this._index+this._list.length)%this._list.length;
+		}
+    }	
+}
+
+Window_ActorCommand.prototype.processTouch = function() {
+	this._Tprev=0;
+	
+	if(this.comwait && this.comwait>0) return;
+	
+    if (this.isOpenAndActive()) {
+		if (TouchInput.isCancelled()) {
+            if (this.isCancelEnabled()) this.processCancel();
+		} else if (TouchInput.isTriggered() && this.isTouchRingCom()) {
+			this.comwait = 9;
+        }
+	}
+}
+
+Window_ActorCommand.prototype.isTouchRingCom = function() {
+	var flag = false;
+	var comms = SceneManager._scene.SoR_ringbcom;
+
+	for(var i=0; i<comms.command_icons.length; i++){
+		if (comms.command_enable[i]==true) {
+			if(CheckIconTouch(comms.command_icons[i],i)!=-1){
+					
+				var Dist_A = Math.abs((this._index + this._list.length) - i)%this._list.length;
+				var Dist_B = Math.abs(this._index - (this._list.length + i))%this._list.length;
+				this._Tprev = Dist_A < Dist_B ? -Dist_A : Dist_B;
+
+				this._index = i;
+				flag = true;
+				break;
+			}
+		}
+	}
+	return flag;	
+}
+
+function CheckIconTouch(currentIcon,id){
+	var ret = -1;
+	var Tx = TouchInput.x;
+    var Ty = TouchInput.y;
+	var wd = currentIcon.bitmap.width;
+	var ht = currentIcon.bitmap.height;	
+	if(Tx >= currentIcon.x-wd/2 && Tx <= currentIcon.x+wd/2){
+	  if(Ty >= currentIcon.y-ht/2 && Ty <= currentIcon.y+ht/2){
+		  ret = id;
+	  }
+	}
+   return ret;
+}
+
+
+var SoR_BRC_SB_commandItem_WA_update = Window_ActorCommand.prototype.update;
+Window_ActorCommand.prototype.update = function() {
+	
+	if (this.comwait && this.comwait > 0) {
+		this.comwait--;
+		if(this.comwait==0) this.processOk();
+	}
+	SoR_BRC_SB_commandItem_WA_update.call(this);	
+};
+
+
 /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //close windows
@@ -387,6 +487,7 @@ SoR_BattleRingCommand.prototype.initialize = function(){
 	this.reserved_idx = 0;
 	this.Is_ring_rot = false;
 	this.rot_duration = 6;
+	this.rotate_scale = 1;
 	
 	this.radius = RingCommands_Radius;
 	this.visible = false;
@@ -396,6 +497,7 @@ SoR_BattleRingCommand.prototype.initialize = function(){
 	
 	this.command_layer_img = ImageManager.loadBattleCommandSprite("Layout");
 	this.command_icons = [];
+	this.command_enable = [];
 	this.command_layerU_img = ImageManager.loadBattleCommandSprite("Layout2");
 	this.ComNameWindow = CreateCommandNameField(this.x,this.y);
 	
@@ -410,6 +512,7 @@ SoR_BattleRingCommand.prototype.setup_RingCommand = function(comact){
 	this.current_idx = 0;
 	this.reserved_idx = 0;
 	this.ring_rotate = 0;
+	this.rotate_scale = 1;
 	this.basespr.visible = true;
 	this.stack_coms = [];
 }
@@ -437,8 +540,14 @@ SoR_BattleRingCommand.prototype.loadRingCommandImages = function(ActCom){
     this.command_imgs = [];
 	this.maxicons = ActCom._list.length;
     for(var i = 0; i < this.maxicons; i++){
-	   if(ActCom.isCommandEnabled(i)) var fname = "Com_" + ActCom._list[i].name;
-	   else var fname = "Com_" + ActCom._list[i].name + "_disabled";
+	   if(ActCom.isCommandEnabled(i)){
+		   var fname = "Com_" + ActCom._list[i].name;
+		   this.command_enable.push(true);
+	   }
+	   else{
+		   var fname = "Com_" + ActCom._list[i].name + "_disabled";
+		   this.command_enable.push(false);
+	   }
        this.command_imgs.push(ImageManager.loadBattleCommandSprite(fname));
 	}
 }
@@ -467,39 +576,55 @@ SoR_BattleRingCommand.prototype.create_commandIcon_spr = function(){
 		this.command_icons[i].scale.y = 1.0;
 		this.command_icons[i].anchor.x = 0.5;
 		this.command_icons[i].anchor.y = 0.5;
-	}	
+	}
 }
 
 
 SoR_BattleRingCommand.prototype.updateCommand = function(ActCom){
+    var prev = ActCom._prev + ActCom._Mprev + ActCom._Tprev;
+	
+    if(prev !=0){ 
+		this.stack_coms.push(prev);
 
-    if(ActCom._prev !=0){ 
-		this.stack_coms.push(ActCom._prev);
-		if(this.stack_coms[0]+this.stack_coms[1]==0){
-			this.stack_coms.shift();
-			this.stack_coms.shift();
+		for(var xx=0; xx<this.stack_coms.length; xx++){
+		    if(xx+1>=this.stack_coms.length) break;
+			// cancel the concurrent commands <- and ->
+			if(this.stack_coms[xx]+this.stack_coms[xx+1]==0) this.stack_coms.splice(xx,2);
 		}
+		for(var xx=0; xx<this.stack_coms.length; xx++){//cancel over ring rotation
+			var cmd_cnt=0;
+			for(var yy=xx; yy<xx+this.maxicons; yy++){
+				if(xx+this.maxicons>=this.stack_coms.length) break;	
+				cmd_cnt += this.stack_coms[yy];
+			}
+			var zz = Math.abs(Math.floor(cmd_cnt/this.maxicons));
+			if(zz>=1){ //x (mod. maxicons) in Z
+				this.stack_coms.splice(xx,this.maxicons*zz);
+			}
+		}
+		
 	}
 	if(!this.Is_ring_rot && this.stack_coms.length > 0){
-		var push = this.stack_coms[0]; //ActCom._prev
+		var push = this.stack_coms[0]; //prev
 		this.stack_coms.shift();
-	
-	var Dist_A = Math.abs((this.current_idx + this.maxicons) - ActCom._index)%this.maxicons;
-		var Dist_B = Math.abs(this.current_idx - (this.maxicons + ActCom._index))%this.maxicons;
-		var Dist = Dist_A < Dist_B ? Dist_A : Dist_B;
-		this.ring_rotate = -push*Dist*this.rot_duration;
-		this.ring_maxrot = this.ring_rotate > 0 ? this.rot_duration : -this.rot_duration;		
-		
-		this.reserved_idx = ActCom._index;
-		this.Is_ring_rot = true;
-		console.log(ActCom)
+			    
+				var newid = this.current_idx + push;
+				var Dist_A = Math.abs((this.current_idx + this.maxicons) - newid)%this.maxicons;
+				var Dist_B = Math.abs(this.current_idx - (this.maxicons + newid))%this.maxicons;
+				var Dist = Dist_A < Dist_B ? Dist_A : Dist_B;
+				this.rotate_scale = Dist;
+				this.ring_rotate = (push>0?-1:1)*this.rot_duration;
+				this.ring_maxrot = this.ring_rotate > 0 ? this.rot_duration : -this.rot_duration;		
+				
+				this.reserved_idx = ActCom._index;
+				this.Is_ring_rot = true;
 	}
-	
+	 
 	
 	for(var i=0; i<this.maxicons; i++){
 		var idx = (-i+this.current_idx+this.maxicons)%this.maxicons;
 		var rotate_main = 2.0*Math.PI /this.maxicons;
-		var rotate_com = this.Is_ring_rot ? rotate_main*((this.ring_maxrot-this.ring_rotate)/this.rot_duration) : 0;
+		var rotate_com = this.Is_ring_rot ? this.rotate_scale* rotate_main *((this.ring_maxrot-this.ring_rotate)/this.rot_duration) : 0;
 
 		this.command_icons[i].x = this.radius * Math.sin((-rotate_main)*idx +rotate_com) +this.x+CommandPadd_X_coord;
 		this.command_icons[i].y = 0.25*this.radius * Math.cos((-rotate_main)*idx +rotate_com) +this.y+CommandPadd_Y_coord;
@@ -529,6 +654,10 @@ SoR_BattleRingCommand.prototype.updateCommand = function(ActCom){
 		  this.Is_ring_rot = false;
 		}
 	}
+	
+	
+
+
 }
 
 
