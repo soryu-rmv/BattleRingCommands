@@ -24,7 +24,7 @@
 * (このスクリプトは、"Type-γ"のものです。)
 *
 * 具体的な用例は
-* https://github.com/soryu-rmv/tech_menus
+* http://dragonflare.dip.jp/dcave/
 * から参照してください。
 *
 * -----------------------------------------------------------
@@ -99,7 +99,7 @@
 * (This file is for "Type-Beta".)
 *
 * To get initial instructions, see
-* https://github.com/soryu-rmv/tech_menus .
+* http://dragonflare.dip.jp/dcave/ .
 * 
 * -----------------------------------------------------------
 * Version Info.
