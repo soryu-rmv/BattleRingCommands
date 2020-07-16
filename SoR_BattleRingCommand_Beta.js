@@ -1,9 +1,9 @@
-//=============================================================================
+﻿//=============================================================================
 // SoR_BattleRingCommand_Beta.js
 // MIT License (C) 2020 蒼竜 @soryu_rpmaker
 // http://opensource.org/licenses/mit-license.php
 // ----------------------------------------------------------------------------
-// Latest version v1.02 (2020/07/15)
+// Latest version v1.02 (2020/07/16)
 //=============================================================================
 
 /*:ja
@@ -30,7 +30,7 @@
 * -----------------------------------------------------------
 * バージョン情報
 * -----------------------------------------------------------
-* v1.02 (2020/07/15)       マウス操作に対応、およびそのためのリング挙動調整
+* v1.02 (2020/07/16)       マウス操作に対応、およびそのためのリング挙動調整
 * v1.01 (2020/07/10)       パーティコマンド切り替え時にRingが表示されたままだった問題を修正
 * v1.00 (2020/06/27)       公開  
 *
@@ -100,12 +100,12 @@
 * (This file is for "Type-Beta".)
 *
 * To get initial instructions, see
-* http://dragonflare.dip.jp/dcave/ .
+* * http://dragonflare.dip.jp/dcave/ .
 * 
 * -----------------------------------------------------------
 * Version Info.
 * -----------------------------------------------------------
-* v1.02 (2020/07/15)       Make compatible with PC Mouse with some modification for ring behavior
+* v1.02 (2020/07/16)       Make compatible with PC Mouse with some modification for ring behavior
 * v1.01 (2020/07/10)       Modified the ring to be invisible at PartyCommandSelection
 * v1.00 (2020/06/27)       Released!
 *
