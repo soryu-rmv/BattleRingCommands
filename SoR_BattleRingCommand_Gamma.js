@@ -34,6 +34,7 @@
 * v1.01 (2020/07/10)       パーティコマンド切り替え時にRingが表示されたままだった問題を修正 
 * v1.00 (2020/06/27)       公開  
 *
+*
 * @param Ringbase_X-coordinate
 * @desc リングの土台画像を置くx座標(default: 10)
 * @default 10
